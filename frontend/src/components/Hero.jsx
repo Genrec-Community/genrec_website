@@ -39,10 +39,10 @@ const Hero = () => {
   }, [currentText, currentIndex, isTyping, texts]);
 
   const stats = [
-    { icon: Zap, number: "50+", label: "AI Projects Delivered" },
-    { icon: Users, number: "15+", label: "Industries Served" },
-    { icon: TrendingUp, number: "99%", label: "Client Satisfaction" },
-    { icon: Cpu, number: "24/7", label: "AI Support" }
+    { icon: Zap, number: "10+", label: "Projects Delivered" },
+    { icon: Users, number: "3+", label: "Industries Served" },
+    { icon: TrendingUp, number: "88%", label: "Client Satisfaction" },
+    { icon: Cpu, number: "24/7", label: "Support" }
   ];
 
   return (
@@ -74,9 +74,9 @@ const Hero = () => {
           {/* Logo Section */}
           <div className="flex justify-center items-center mb-8">
             <div className="relative">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_futurehome/artifacts/ctjqr19b_Genrec_Mini_Logo-removebg-preview.png" 
-                alt="Genrec AI Logo" 
+              <img
+                src="/logo.svg"
+                alt="Genrec AI Logo"
                 className="w-24 h-24 animate-pulse"
               />
               <div className="absolute inset-0 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>

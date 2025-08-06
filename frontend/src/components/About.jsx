@@ -27,14 +27,14 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "10+", label: "MVPs Built" },
-    { number: "5", label: "Tools Launched" },
-    { number: "100%", label: "Uptime" },
-    { number: "3", label: "Years Experience" }
+    { number: "5+", label: "MVPs Built" },
+    { number: "2", label: "Tools Launched" },
+    { number: "85%", label: "Satisfaction Rate" },
+    { number: "2+", label: "Years Experience" }
   ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section id="about" className="py-20 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -58,20 +58,23 @@ const About = () => {
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
-              <Card 
-                key={index} 
-                className="group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:bg-gray-800/60 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2"
+              <Card
+                key={index}
+                className="group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:bg-gray-800/60 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20"
+                style={{
+                  animationDelay: `${index * 0.1}s`
+                }}
               >
                 <CardContent className="p-8">
                   <div className="mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-8 h-8 text-yellow-400" />
+                    <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                      <IconComponent className="w-8 h-8 text-yellow-400 group-hover:animate-pulse" />
                     </div>
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-yellow-400 transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -81,11 +84,11 @@ const About = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-gray-800/50 p-8">
+        <div className="bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-gray-800/50 p-8 hover:border-yellow-400/30 transition-all duration-500">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">
+              <div key={index} className="text-center group hover:scale-105 transition-transform duration-300">
+                <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 group-hover:animate-pulse">
                   {stat.number}
                 </div>
                 <div className="text-gray-300 text-sm font-medium">

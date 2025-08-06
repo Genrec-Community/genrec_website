@@ -77,7 +77,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-gray-900 to-black">
+    <section id="contact" className="py-20 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -97,7 +97,7 @@ const Contact = () => {
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Contact Information */}
           <div className="lg:col-span-1">
-            <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-800/50 h-fit">
+            <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-800/50 h-fit hover:border-yellow-400/30 transition-all duration-500 hover:scale-105">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-white mb-6">
                   Get In Touch
@@ -155,7 +155,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-800/50">
+            <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:scale-105">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-white">
                   Start Your Project
@@ -207,62 +207,9 @@ const Contact = () => {
                     />
                   </div>
 
-                  {/* Project Details */}
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Project Type *
-                      </label>
-                      <Select onValueChange={(value) => handleChange('projectType', value)} required>
-                        <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white focus:border-yellow-400 focus:ring-yellow-400/20">
-                          <SelectValue placeholder="Select type" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-800 border-gray-700">
-                          {projectTypes.map((type) => (
-                            <SelectItem key={type} value={type} className="text-white hover:bg-gray-700">
-                              {type}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                  
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Budget Range
-                      </label>
-                      <Select onValueChange={(value) => handleChange('budget', value)}>
-                        <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white focus:border-yellow-400 focus:ring-yellow-400/20">
-                          <SelectValue placeholder="Select budget" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-800 border-gray-700">
-                          {budgetRanges.map((budget) => (
-                            <SelectItem key={budget} value={budget} className="text-white hover:bg-gray-700">
-                              {budget}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Timeline
-                      </label>
-                      <Select onValueChange={(value) => handleChange('timeline', value)}>
-                        <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white focus:border-yellow-400 focus:ring-yellow-400/20">
-                          <SelectValue placeholder="Select timeline" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-800 border-gray-700">
-                          {timelines.map((timeline) => (
-                            <SelectItem key={timeline} value={timeline} className="text-white hover:bg-gray-700">
-                              {timeline}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
+          
 
                   {/* Project Description */}
                   <div>

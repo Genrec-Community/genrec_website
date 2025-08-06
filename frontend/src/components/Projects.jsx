@@ -115,7 +115,7 @@ const Projects = () => {
     : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section id="projects" className="py-20 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -153,9 +153,9 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <Card 
-              key={project.id} 
-              className="group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 overflow-hidden hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10"
+            <Card
+              key={project.id}
+              className="group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 overflow-hidden hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10 hover:scale-105"
             >
               {/* Project Image */}
               <div className="relative overflow-hidden">

@@ -41,10 +41,10 @@ export const mockData = {
       }
     ],
     stats: [
-      { number: "10+", label: "MVPs Built" },
-      { number: "5", label: "Tools Launched" },
-      { number: "100%", label: "Uptime" },
-      { number: "3", label: "Years Experience" }
+      { number: "5+", label: "MVPs Built" },
+      { number: "2", label: "Tools Launched" },
+      { number: "85%", label: "Satisfaction Rate" },
+      { number: "2+", label: "Years Experience" }
     ]
   },
 

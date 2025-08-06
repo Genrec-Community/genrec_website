@@ -81,7 +81,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-gray-900 to-black">
+    <section id="services" className="py-20 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -103,9 +103,12 @@ const Services = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <Card 
-                key={index} 
-                className={`group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10`}
+              <Card
+                key={index}
+                className={`group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10 hover:scale-105`}
+                style={{
+                  animationDelay: `${index * 0.1}s`
+                }}
               >
                 <CardHeader className="pb-4">
                   <div className="mb-4">

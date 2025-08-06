@@ -32,16 +32,12 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <img 
-              src="https://customer-assets.emergentagent.com/job_futurehome/artifacts/ctjqr19b_Genrec_Mini_Logo-removebg-preview.png" 
-              alt="Genrec AI" 
-              className="w-10 h-10"
+            <img
+              src="/logo.svg"
+              alt="Genrec AI"
+              className="w-12 h-12"
             />
-            <img 
-              src="https://customer-assets.emergentagent.com/job_futurehome/artifacts/0fkp6gzh_Genrec_Full_Logo-removebg-preview.png" 
-              alt="GENREC" 
-              className="h-8"
-            />
+            <span className="text-2xl font-bold text-white font-orbitron">GENREC</span>
           </div>
 
           {/* Desktop Navigation */}
