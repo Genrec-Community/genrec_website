@@ -39,10 +39,10 @@ const About = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent animate-pulse">
               Forging the
             </span>
-            <span className="block bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-pulse">
               Future
             </span>
           </h2>
@@ -93,6 +93,58 @@ const About = () => {
                 </div>
                 <div className="text-gray-300 text-sm font-medium">
                   {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Testimonials Section */}
+        <div className="mt-20">
+          <h3 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              What Our Clients Say
+            </span>
+          </h3>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                company: "TechCorp Inc.",
+                role: "CTO",
+                testimonial: "Genrec AI transformed our business processes with their intelligent automation solutions. ROI was visible within 3 months!",
+                rating: 5
+              },
+              {
+                name: "Michael Chen",
+                company: "DataFlow Systems",
+                role: "CEO",
+                testimonial: "The AI-powered analytics platform they built for us provides insights we never thought possible. Game-changing technology!",
+                rating: 5
+              },
+              {
+                name: "Emily Rodriguez",
+                company: "InnovateLab",
+                role: "Product Manager",
+                testimonial: "Professional, innovative, and results-driven. Genrec AI delivered beyond our expectations with cutting-edge solutions.",
+                rating: 5
+              }
+            ].map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6 hover:border-yellow-400/30 transition-all duration-300 hover:scale-105"
+              >
+                <div className="flex items-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className="text-yellow-400 text-lg">★</span>
+                  ))}
+                </div>
+                <p className="text-gray-300 mb-4 italic">"{testimonial.testimonial}"</p>
+                <div className="border-t border-gray-800/50 pt-4">
+                  <p className="text-white font-semibold">{testimonial.name}</p>
+                  <p className="text-yellow-400 text-sm">{testimonial.role}</p>
+                  <p className="text-gray-400 text-sm">{testimonial.company}</p>
                 </div>
               </div>
             ))}

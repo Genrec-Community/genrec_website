@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Twitter, Linkedin, Github, Mail, ArrowUp } from 'lucide-react';
@@ -9,11 +10,11 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" }
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Projects", href: "/projects" },
+    { label: "Contact", href: "/contact" }
   ];
 
   const services = [
@@ -42,11 +43,10 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
                 <img
-                  src="/logo.svg"
+                  src="/Genrec_Full_Logo.png"
                   alt="Genrec AI"
-                  className="w-12 h-12"
+                  className="h-36 w-auto"
                 />
-                <span className="text-xl font-bold text-white font-orbitron">GENREC</span>
               </div>
               
               <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
@@ -89,12 +89,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.label}>
-                    <a 
-                      href={link.href} 
+                    <Link
+                      to={link.href}
                       className="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

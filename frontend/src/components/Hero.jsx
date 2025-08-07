@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ChevronDown, Zap, Users, TrendingUp, Cpu } from 'lucide-react';
 
@@ -6,6 +7,23 @@ const Hero = () => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    // Simple entrance animation
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+
+      if (window.showNotification) {
+        window.showNotification('info', '🚀 Welcome to Genrec AI! Explore our cutting-edge AI solutions.', 4000);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
   
   const texts = [
     'thinks, learns, and evolves.',
@@ -17,7 +35,7 @@ const Hero = () => {
   useEffect(() => {
     const typeText = () => {
       const fullText = texts[currentIndex];
-      
+
       if (isTyping) {
         if (currentText.length < fullText.length) {
           setCurrentText(fullText.slice(0, currentText.length + 1));
@@ -69,17 +87,17 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
+      <div className={`relative z-10 container mx-auto px-6 pt-32 pb-20 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center">
           {/* Logo Section */}
           <div className="flex justify-center items-center mb-8">
             <div className="relative">
               <img
-                src="/logo.svg"
+                src="/Genrec_Full_Logo.png"
                 alt="Genrec AI Logo"
-                className="w-24 h-24 animate-pulse"
+                className="h-72 w-auto animate-pulse"
               />
-              <div className="absolute inset-0 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute inset-16 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
             </div>
           </div>
 
@@ -97,26 +115,33 @@ const Hero = () => {
           <div className="h-24 mb-8 flex items-center justify-center">
             <p className="text-2xl md:text-3xl text-gray-300 font-light">
               We build AI that{' '}
-              <span className="text-yellow-400 font-medium border-r-2 border-yellow-400 animate-pulse">
-                {currentText}
+              <span className="relative">
+                <span className="text-yellow-400 font-medium bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+                  {currentText}
+                </span>
+                <span className="absolute -right-1 top-0 w-0.5 h-8 bg-yellow-400 animate-pulse"></span>
               </span>
             </p>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 font-medium px-8 py-4 text-lg shadow-lg hover:shadow-yellow-400/25 transition-all duration-300"
+            <Button
+              size="lg"
+              onClick={() => navigate('/contact')}
+              className="group relative bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 font-medium px-8 py-4 text-lg shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
-              Start Your AI Journey
+              <span className="relative z-10">Start Your AI Journey</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-2 border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/10 font-medium px-8 py-4 text-lg backdrop-blur-sm"
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => navigate('/projects')}
+              className="group relative border-2 border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/20 hover:text-black hover:border-yellow-400/60 font-medium px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 overflow-hidden"
             >
-              Explore Projects
+              <span className="relative z-10">Explore Projects</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 to-yellow-500/30 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
             </Button>
           </div>
 

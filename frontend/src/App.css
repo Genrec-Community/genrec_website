@@ -34,6 +34,285 @@ h1, h2, h3, h4, h5, h6 {
   50% { transform: translateY(-10px); }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.5s ease-out;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .animate-pulse {
+    animation-duration: 3s;
+  }
+
+  .animate-bounce {
+    animation-duration: 2s;
+  }
+
+  /* Optimize transforms for mobile */
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+
+  .hover\:scale-110:hover {
+    transform: scale(1.05);
+  }
+
+  /* Reduce blur effects on mobile for performance */
+  .blur-xl {
+    backdrop-filter: blur(8px);
+  }
+
+  .blur-lg {
+    backdrop-filter: blur(6px);
+  }
+
+  .blur-md {
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .hover\:scale-105:hover,
+  .hover\:scale-110:hover,
+  .hover\:-translate-y-2:hover {
+    transform: none;
+  }
+
+  /* Increase touch targets */
+  button, .cursor-pointer {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse,
+  .animate-bounce,
+  .animate-spin {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-gray-900\/50 {
+    background-color: rgb(0 0 0 / 0.8);
+  }
+
+  .border-gray-800\/50 {
+    border-color: rgb(255 255 255 / 0.3);
+  }
+}
+
+/* Chatbot mobile optimizations */
+@media (max-width: 640px) {
+  /* Ensure chatbot doesn't overflow on small screens */
+  .chatbot-container {
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 6rem);
+  }
+
+  /* Optimize touch targets for mobile */
+  .chatbot-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improve text readability on mobile */
+  .chatbot-message {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Optimize input area for mobile keyboards */
+  .chatbot-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .chatbot-container {
+    max-height: calc(100vh - 4rem);
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .chatbot-container {
+    width: 320px;
+    height: 500px;
+  }
+}
+
+/* Logo visibility optimizations */
+.logo-container {
+  position: relative;
+  z-index: 60;
+}
+
+.logo-container img {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+/* Mobile-specific logo protection */
+@media (max-width: 768px) {
+  .mobile-logo-protection {
+    position: relative;
+    z-index: 70 !important;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 8px 16px;
+    margin: 4px 0;
+  }
+
+  .mobile-logo-protection img {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) brightness(1.1);
+  }
+
+  .mobile-logo-text {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    filter: brightness(1.1);
+  }
+}
+
+/* Mobile navbar glassmorphism */
+@media (max-width: 768px) {
+  .mobile-nav-overlay {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(17, 24, 39, 0.8) 100%);
+  }
+
+  .mobile-nav-item {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+/* Brochure responsive optimizations */
+@media (max-width: 640px) {
+  .brochure-title {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+
+  .brochure-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .brochure-card {
+    padding: 1rem;
+  }
+
+  .brochure-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .brochure-industries {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .brochure-title {
+    font-size: 3.5rem;
+  }
+
+  .brochure-industries {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Enhanced glassmorphism effects */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-effect-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Improved button interactions */
+@media (hover: hover) {
+  .interactive-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .interactive-button:active {
+    transform: scale(0.98);
+  }
+
+  .mobile-nav-item:active {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -234,5 +513,69 @@ select:focus-visible {
   .App {
     background-color: #000000;
     color: #ffffff;
+  }
+}
+
+/* Chatbot animations */
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: slideInFromBottom 0.3s ease-out;
+}
+
+.slide-in-from-bottom-4 {
+  animation: slideInFromBottom 0.3s ease-out;
+}
+
+/* Chatbot message animations */
+.message-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.message-scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+
+/* Floating button pulse effect */
+.chatbot-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .8;
+    transform: scale(1.05);
   }
 }

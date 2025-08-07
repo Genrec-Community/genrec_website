@@ -5,7 +5,8 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from '../hooks/use-toast';
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import apiService from '../services/api';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -29,25 +30,49 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Mock form submission
-    setTimeout(() => {
+    try {
+      // Submit to backend API
+      const response = await apiService.submitContactWithFallback({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        projectType: formData.projectType,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        message: formData.message
+      });
+
+      if (response.success) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: response.offline
+            ? "Your message has been saved and will be sent when connection is restored."
+            : "We'll get back to you within 24 hours.",
+          action: <CheckCircle className="w-4 h-4 text-green-500" />
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          projectType: '',
+          budget: '',
+          message: '',
+          timeline: ''
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
       toast({
-        title: "Message Sent Successfully!",
-        description: "We'll get back to you within 24 hours.",
-        action: <CheckCircle className="w-4 h-4 text-green-500" />
+        title: "Submission Failed",
+        description: "There was an error sending your message. Please try again.",
+        action: <AlertCircle className="w-4 h-4 text-red-500" />
       });
-      
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        projectType: '',
-        budget: '',
-        message: '',
-        timeline: ''
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   const projectTypes = [

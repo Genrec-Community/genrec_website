@@ -1,15 +1,15 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import { 
-  Globe, 
-  Users, 
-  Brain, 
-  Smartphone, 
-  Server, 
-  FileText, 
-  ShoppingCart, 
-  GraduationCap 
+import {
+  Globe,
+  Users,
+  Brain,
+  Smartphone,
+  Server,
+  FileText,
+  ShoppingCart,
+  GraduationCap
 } from 'lucide-react';
 
 const Services = () => {
@@ -105,7 +105,7 @@ const Services = () => {
             return (
               <Card
                 key={index}
-                className={`group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10 hover:scale-105`}
+                className="group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10 hover:scale-105"
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
