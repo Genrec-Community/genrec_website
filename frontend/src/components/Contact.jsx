@@ -32,7 +32,7 @@ const Contact = () => {
 
     try {
       // Submit to backend API
-      const response = await apiService.submitContactWithFallback({
+      const response = await apiService.submitContact({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -44,18 +44,22 @@ const Contact = () => {
       });
 
       if (response.success) {
-        toast({
-          title: "Message Sent Successfully!",
-          description: response.offline
-            ? "Your message has been saved and will be sent when connection is restored."
-            : "We'll get back to you within 24 hours.",
-          action: <CheckCircle className="w-4 h-4 text-green-500" />
-        });
+        // Show success message
+        if (toast) {
+          toast({
+            title: "Message Sent Successfully!",
+            description: "We'll get back to you within 24 hours.",
+            action: <CheckCircle className="w-4 h-4 text-green-500" />
+          });
+        } else {
+          alert("Message Sent Successfully! We'll get back to you within 24 hours.");
+        }
 
         // Reset form
         setFormData({
           name: '',
           email: '',
+          phone: '',
           company: '',
           projectType: '',
           budget: '',
@@ -65,11 +69,15 @@ const Contact = () => {
       }
     } catch (error) {
       console.error('Error submitting contact form:', error);
-      toast({
-        title: "Submission Failed",
-        description: "There was an error sending your message. Please try again.",
-        action: <AlertCircle className="w-4 h-4 text-red-500" />
-      });
+      if (toast) {
+        toast({
+          title: "Submission Failed",
+          description: "There was an error sending your message. Please try again.",
+          action: <AlertCircle className="w-4 h-4 text-red-500" />
+        });
+      } else {
+        alert("Submission Failed: There was an error sending your message. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }

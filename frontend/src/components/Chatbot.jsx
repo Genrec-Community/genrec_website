@@ -50,7 +50,7 @@ const Chatbot = () => {
   // Initialize conversation with backend
   const initializeConversation = async () => {
     try {
-      const response = await apiService.createConversationWithFallback({
+      const response = await apiService.createConversation({
         sessionId: conversationData.sessionId,
         userEmail: userEmail,
         userName: userName
@@ -77,19 +77,13 @@ const Chatbot = () => {
 
     // Initialize conversation with user info
     try {
-      await apiService.createConversationWithFallback({
+      await apiService.createConversation({
         sessionId: conversationData.sessionId,
         userEmail: email,
         userName: name
       });
     } catch (error) {
       console.error('Error saving user info:', error);
-      // Fallback to localStorage
-      try {
-        localStorage.setItem('genrec_user_info', JSON.stringify(userInfo));
-      } catch (localError) {
-        console.error('Error saving to localStorage:', localError);
-      }
     }
   };
 
@@ -110,7 +104,7 @@ const Chatbot = () => {
   // Save feedback to backend
   const saveFeedback = async (rating, feedbackText, messageId) => {
     try {
-      const response = await apiService.submitFeedbackWithFallback({
+      const response = await apiService.submitFeedback({
         sessionId: conversationData.sessionId,
         rating,
         feedbackText,
@@ -120,9 +114,11 @@ const Chatbot = () => {
 
       if (response.success) {
         console.log('Feedback saved:', response.data);
+        return true;
       }
     } catch (error) {
       console.error('Error saving feedback:', error);
+      return false;
     }
   };
 
@@ -152,22 +148,28 @@ const Chatbot = () => {
     if (selectedRating === 0) return;
 
     // Save feedback to backend
-    await saveFeedback(selectedRating, feedbackText, null);
+    const feedbackSaved = await saveFeedback(selectedRating, feedbackText, null);
 
+    // Create feedback response message
     const feedbackMessage = {
       id: messageCount + 1,
-      text: `Thank you for your ${selectedRating}/10 rating! 🌟 ${feedbackText ? `Your feedback: "${feedbackText}"` : ''} We appreciate your input and will use it to improve AskMe and our services!`,
+      text: feedbackSaved
+        ? `Thank you for your ${selectedRating}/10 rating! 🌟 ${feedbackText ? `Your feedback: "${feedbackText}"` : ''} We appreciate your input and will use it to improve AskMe and our services!`
+        : `Thank you for your ${selectedRating}/10 rating! 🌟 ${feedbackText ? `Your feedback: "${feedbackText}"` : ''} Your feedback has been recorded locally and we'll use it to improve our services!`,
       sender: 'bot',
       timestamp: new Date()
     };
 
+    // Add the response message to chat
     setMessages(prev => [...prev, feedbackMessage]);
     setMessageCount(prev => prev + 1);
+
+    // Close feedback modal and reset
     setShowFeedbackModal(false);
     setSelectedRating(0);
     setFeedbackText('');
 
-    // Save the feedback message too
+    // Save the feedback response message
     await saveMessage(feedbackMessage);
   };
 

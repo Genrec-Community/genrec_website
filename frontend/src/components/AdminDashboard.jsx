@@ -208,24 +208,27 @@ const AdminDashboard = () => {
               </Card>
             </div>
 
-            {/* Summary Stats */}
+            {/* Feature Overview */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card className="bg-gray-800 border-gray-700">
                 <CardHeader>
-                  <CardTitle className="text-white">Contact Status Distribution</CardTitle>
+                  <CardTitle className="text-white">Contact Management</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
+                    <p className="text-gray-300">
+                      Manage all customer inquiries and project requests. Track contact status from initial inquiry to completion.
+                    </p>
                     <div className="flex justify-between">
-                      <span className="text-gray-300">New</span>
+                      <span className="text-gray-400">New Contacts</span>
                       <span className="text-blue-400">{dashboardData.contacts.new_contacts}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-300">In Progress</span>
+                      <span className="text-gray-400">In Progress</span>
                       <span className="text-yellow-400">{dashboardData.contacts.in_progress_contacts}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-300">Completed</span>
+                      <span className="text-gray-400">Completed</span>
                       <span className="text-green-400">{dashboardData.contacts.completed_contacts}</span>
                     </div>
                   </div>
@@ -234,21 +237,22 @@ const AdminDashboard = () => {
 
               <Card className="bg-gray-800 border-gray-700">
                 <CardHeader>
-                  <CardTitle className="text-white">Customer Satisfaction</CardTitle>
+                  <CardTitle className="text-white">Conversation System</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
+                    <p className="text-gray-300">
+                      AI-powered chatbot conversations with customers. Collect feedback and improve customer experience.
+                    </p>
                     <div className="flex justify-between">
-                      <span className="text-gray-300">Positive (8-10)</span>
-                      <span className="text-green-400">{dashboardData.feedback.positive_feedback}</span>
+                      <span className="text-gray-400">Total Conversations</span>
+                      <span className="text-blue-400">{dashboardData.conversations.total_conversations}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-300">Negative (1-5)</span>
-                      <span className="text-red-400">{dashboardData.feedback.negative_feedback}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">With Comments</span>
-                      <span className="text-blue-400">{dashboardData.feedback.with_comments}</span>
+                      <span className="text-gray-400">Average Rating</span>
+                      <span className="text-yellow-400">
+                        {dashboardData.feedback.average_rating ? dashboardData.feedback.average_rating.toFixed(1) : 'N/A'}
+                      </span>
                     </div>
                   </div>
                 </CardContent>

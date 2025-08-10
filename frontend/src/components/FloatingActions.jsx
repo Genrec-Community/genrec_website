@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
-import { 
-  ArrowUp, 
-  Zap, 
-  Calendar, 
-  Download, 
-  Phone, 
+import {
+  ArrowUp,
+  Zap,
+  Calendar,
+  Download,
+  Phone,
   Mail,
   FileText,
   ExternalLink
 } from 'lucide-react';
+import apiService from '../services/api';
 
 const FloatingActions = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const navigate = useNavigate();
+
+  // Track user interactions
+  const trackInteraction = async (action, details = {}) => {
+    try {
+      await apiService.trackInteraction({
+        action,
+        details,
+        timestamp: new Date(),
+        source: 'floating_actions'
+      });
+    } catch (error) {
+      console.error('Error tracking interaction:', error);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,19 +67,23 @@ const FloatingActions = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const openCalendly = () => {
+  const openCalendly = async () => {
+    await trackInteraction('calendar_click', { action: 'book_meeting' });
     window.open('https://calendly.com/genrec-ai/consultation', '_blank');
   };
 
-  const downloadBrochure = () => {
+  const downloadBrochure = async () => {
+    await trackInteraction('brochure_click', { action: 'download_brochure' });
     navigate('/brochure');
   };
 
-  const callUs = () => {
+  const callUs = async () => {
+    await trackInteraction('phone_click', { action: 'call_us', phone: '+1234567890' });
     window.open('tel:+1-555-123-4567', '_self');
   };
 
-  const emailUs = () => {
+  const emailUs = async () => {
+    await trackInteraction('email_click', { action: 'email_us', email: 'contact@genrecai.com' });
     window.open('mailto:contact@genrecai.com', '_self');
   };
 

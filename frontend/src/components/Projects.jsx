@@ -1,33 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { ExternalLink, Eye, X } from 'lucide-react';
+import { ExternalLink, Eye, X, ArrowDown, Star, Rocket, Zap, Brain, Sparkles, Play, Github } from 'lucide-react';
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToProjects = () => {
+    document.getElementById('other-projects').scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
 
   const categories = ['All', 'EdTech', 'Business', 'Data Science', 'Mobile', 'Data Analysis', 'Education'];
 
-  const projects = [
-    {
-      id: 1,
-      title: "LuminaIQ",
-      category: "EdTech",
-      description: "AI-powered learning platform with adaptive question generation and real-time performance evaluation.",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
-      tags: ["AI", "Education", "React", "Python"],
-      highlights: ["Adaptive Quiz Generation", "Real-time Feedback", "Gamified Progress", "Multi-language Support"],
-      metrics: {
-        users: "10K+",
-        accuracy: "94%",
-        engagement: "85%"
-      },
-      demoUrl: "#",
-      caseStudyUrl: "#"
+  // Hero project - Lumina AI
+  const heroProject = {
+    id: 1,
+    title: "Lumina AI",
+    subtitle: "The Future of Intelligent Learning",
+    category: "EdTech",
+    description: "Revolutionary AI-powered learning platform that adapts to every student's unique learning style. Experience personalized education with real-time performance evaluation and adaptive question generation.",
+    longDescription: "Lumina AI represents the pinnacle of educational technology, combining advanced machine learning algorithms with intuitive user experience design. Our platform doesn't just teach—it learns from each student, creating a truly personalized educational journey that maximizes learning potential and engagement.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1920&h=1080&fit=crop",
+    tags: ["AI", "Machine Learning", "Education", "React", "Python", "TensorFlow"],
+    highlights: [
+      "Adaptive Quiz Generation",
+      "Real-time Performance Analytics",
+      "Gamified Learning Experience",
+      "Multi-language Support",
+      "Personalized Learning Paths",
+      "Advanced Progress Tracking"
+    ],
+    metrics: {
+      users: "50K+",
+      accuracy: "96%",
+      engagement: "92%",
+      satisfaction: "4.9/5"
     },
+    features: [
+      { icon: Brain, title: "AI-Powered Adaptation", desc: "Learns from student behavior" },
+      { icon: Zap, title: "Real-time Feedback", desc: "Instant performance insights" },
+      { icon: Star, title: "Gamified Learning", desc: "Engaging progress system" },
+      { icon: Sparkles, title: "Personalized Content", desc: "Tailored to each learner" }
+    ],
+    demoUrl: "#",
+    githubUrl: "#",
+    caseStudyUrl: "#"
+  };
+
+  const projects = [
     {
       id: 2,
       title: "CRM Pro Suite",
@@ -115,40 +147,160 @@ const Projects = () => {
     : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <section id="projects" className="py-20 relative">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Our
-            </span>
-            <span className="block bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-              Projects
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Explore our portfolio of cutting-edge AI solutions that have transformed businesses across industries.
-          </p>
-          
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
-                className={
-                  selectedCategory === category
-                    ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500"
-                    : "border-gray-700 text-gray-300 hover:bg-gray-800/50 hover:text-yellow-400 hover:border-yellow-400/30"
-                }
-              >
-                {category}
-              </Button>
-            ))}
+    <div className="relative">
+      {/* HERO SECTION - LUMINA AI */}
+      <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-transparent to-blue-400/10 animate-pulse"></div>
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255, 255, 0, 0.1) 0%, transparent 50%),
+                               radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                               radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)`,
+              transform: `translateY(${scrollY * 0.5}px)`
+            }}
+          ></div>
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+            {/* Left Content */}
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-2 text-sm font-semibold">
+                  🚀 FLAGSHIP PROJECT
+                </Badge>
+                <h1 className="text-6xl md:text-8xl font-bold leading-tight">
+                  <span className="bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent">
+                    Lumina
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 bg-clip-text text-transparent">
+                    AI
+                  </span>
+                </h1>
+                <p className="text-2xl text-gray-300 font-light">
+                  {heroProject.subtitle}
+                </p>
+              </div>
+
+              <p className="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                {heroProject.longDescription}
+              </p>
+
+              {/* Metrics */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {Object.entries(heroProject.metrics).map(([key, value]) => (
+                  <div key={key} className="text-center">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                      {value}
+                    </div>
+                    <div className="text-sm text-gray-400 capitalize">{key}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 px-8 py-4 text-lg font-semibold group"
+                >
+                  <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  Live Demo
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/10 px-8 py-4 text-lg"
+                >
+                  <Github className="w-5 h-5 mr-2" />
+                  View Code
+                </Button>
+              </div>
+            </div>
+            {/* Right Content - Project Showcase */}
+            <div className="relative">
+              {/* Main Project Image */}
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-blue-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700/50 backdrop-blur-sm">
+                  <img
+                    src={heroProject.image}
+                    alt={heroProject.title}
+                    className="w-full h-64 object-cover rounded-xl mb-6"
+                  />
+
+                  {/* Features Grid */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {heroProject.features.map((feature, index) => (
+                      <div key={index} className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                        <feature.icon className="w-6 h-6 text-yellow-400" />
+                        <div>
+                          <div className="text-sm font-semibold text-white">{feature.title}</div>
+                          <div className="text-xs text-gray-400">{feature.desc}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <Button
+            variant="ghost"
+            size="lg"
+            onClick={scrollToProjects}
+            className="text-yellow-400 hover:text-yellow-300 flex flex-col items-center space-y-2"
+          >
+            <span className="text-sm">More Projects</span>
+            <ArrowDown className="w-6 h-6" />
+          </Button>
+        </div>
+      </section>
+
+      {/* OTHER PROJECTS SECTION */}
+      <section id="other-projects" className="py-20 bg-gray-900 relative">
+        <div className="container mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Other
+              </span>
+              <span className="block bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                Projects
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+              Explore our diverse portfolio of AI solutions across different industries.
+            </p>
+
+            {/* Category Filter */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  onClick={() => setSelectedCategory(category)}
+                  className={
+                    selectedCategory === category
+                      ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500"
+                      : "border-gray-700 text-gray-300 hover:bg-gray-800/50 hover:text-yellow-400 hover:border-yellow-400/30"
+                  }
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
+          </div>
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -295,8 +447,9 @@ const Projects = () => {
             </DialogContent>
           </Dialog>
         )}
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 };
 

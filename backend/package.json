@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "postgresql": "node postgresql-server.js",
+    "init-db": "node init-postgresql.js",
+    "quick": "node quick-start.js",
     "test": "jest",
     "migrate": "node scripts/migrate.js"
   },

@@ -217,50 +217,32 @@ class OfflineStorage {
   }
 }
 
-// Enhanced API service with offline support
+// Enhanced API service with immediate storage
 class EnhancedApiService extends ApiService {
-  async createConversationWithFallback(conversationData) {
-    try {
-      return await this.createConversation(conversationData);
-    } catch (error) {
-      console.warn('API unavailable, saving locally:', error);
-      OfflineStorage.saveToLocal('pending_conversations', conversationData);
-      return {
-        success: true,
-        data: { ...conversationData, id: Date.now() },
-        offline: true
-      };
-    }
+
+  // Track user interactions
+  async trackInteraction(interactionData) {
+    return this.request('/api/analytics/track', {
+      method: 'POST',
+      body: JSON.stringify(interactionData),
+    });
   }
 
-  async submitContactWithFallback(contactData) {
-    try {
-      return await this.submitContact(contactData);
-    } catch (error) {
-      console.warn('API unavailable, saving locally:', error);
-      OfflineStorage.saveToLocal('pending_contacts', contactData);
-      return {
-        success: true,
-        data: { ...contactData, id: Date.now() },
-        offline: true
-      };
-    }
+  // Save email interactions
+  async saveEmailInteraction(email, source) {
+    return this.request('/api/interactions/email', {
+      method: 'POST',
+      body: JSON.stringify({ email, source, timestamp: new Date() }),
+    });
   }
 
-  async submitFeedbackWithFallback(feedbackData) {
-    try {
-      return await this.submitFeedback(feedbackData);
-    } catch (error) {
-      console.warn('API unavailable, saving locally:', error);
-      OfflineStorage.saveToLocal('pending_feedback', feedbackData);
-      return {
-        success: true,
-        data: { ...feedbackData, id: Date.now() },
-        offline: true
-      };
-    }
+  // Save download interactions
+  async saveDownloadInteraction(downloadType, userInfo) {
+    return this.request('/api/interactions/download', {
+      method: 'POST',
+      body: JSON.stringify({ downloadType, userInfo, timestamp: new Date() }),
+    });
   }
 }
 
 export default new EnhancedApiService();
-export { OfflineStorage };

@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Twitter, Linkedin, Github, Mail, ArrowUp } from 'lucide-react';
+import { Twitter, Linkedin, Github, Mail, ArrowUp, CheckCircle, AlertCircle } from 'lucide-react';
+import { useToast } from '../hooks/use-toast';
+import apiService from '../services/api';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { toast } = useToast();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsSubscribing(true);
+    try {
+      // Save email subscription
+      await apiService.saveEmailInteraction(email, 'newsletter_subscription');
+
+      if (toast) {
+        toast({
+          title: "Successfully Subscribed!",
+          description: "Thank you for subscribing to our newsletter.",
+          action: <CheckCircle className="w-4 h-4 text-green-500" />
+        });
+      } else {
+        alert("Successfully Subscribed! Thank you for subscribing to our newsletter.");
+      }
+
+      setEmail('');
+    } catch (error) {
+      console.error('Error subscribing:', error);
+      if (toast) {
+        toast({
+          title: "Subscription Failed",
+          description: "There was an error subscribing. Please try again.",
+          action: <AlertCircle className="w-4 h-4 text-red-500" />
+        });
+      } else {
+        alert("Subscription Failed: There was an error subscribing. Please try again.");
+      }
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   const quickLinks = [
@@ -121,16 +163,30 @@ const Footer = () => {
                 Subscribe to our newsletter for the latest AI insights and updates.
               </p>
               
-              <div className="space-y-3">
+              <form onSubmit={handleSubscribe} className="space-y-3">
                 <Input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   className="bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-yellow-400 focus:ring-yellow-400/20"
+                  required
                 />
-                <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 font-medium">
-                  Subscribe
+                <Button
+                  type="submit"
+                  disabled={isSubscribing || !email.trim()}
+                  className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 font-medium disabled:opacity-50"
+                >
+                  {isSubscribing ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
+                      <span>Subscribing...</span>
+                    </div>
+                  ) : (
+                    'Subscribe'
+                  )}
                 </Button>
-              </div>
+              </form>
             </div>
           </div>
         </div>

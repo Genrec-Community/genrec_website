@@ -7,6 +7,37 @@ const { logger } = require('../utils/logger');
 
 const router = express.Router();
 
+// @route   POST /api/analytics/track
+// @desc    Track user interactions
+// @access  Public
+router.post('/track', async (req, res) => {
+  try {
+    const { action, details, timestamp, source } = req.body;
+
+    // Simple logging for now - could be expanded to database storage
+    logger.info('User interaction tracked', {
+      action,
+      details,
+      source,
+      timestamp,
+      ip: req.ip,
+      userAgent: req.get('User-Agent')
+    });
+
+    res.json({
+      success: true,
+      message: 'Interaction tracked successfully'
+    });
+
+  } catch (error) {
+    logger.error('Error tracking interaction:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to track interaction'
+    });
+  }
+});
+
 // @route   GET /api/analytics/overview
 // @desc    Get analytics overview
 // @access  Private (Admin only)

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test - Genrec AI Backend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 CORS Test for Genrec AI Backend</h1>
+    <p>This page tests if the CORS configuration is working properly. Make sure your backend is running on <code>http://localhost:5000</code></p>
+
+    <div class="test-section">
+        <h2>1. Health Check Test</h2>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="health-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Contact Form Test</h2>
+        <input type="text" id="contact-name" placeholder="Your Name" value="Test User">
+        <input type="email" id="contact-email" placeholder="Your Email" value="test@example.com">
+        <textarea id="contact-message" placeholder="Your Message">This is a test message to verify CORS is working.</textarea>
+        <button onclick="testContact()">Test Contact Submission</button>
+        <div id="contact-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Newsletter Test</h2>
+        <input type="email" id="newsletter-email" placeholder="Newsletter Email" value="newsletter@example.com">
+        <button onclick="testNewsletter()">Test Newsletter Subscription</button>
+        <div id="newsletter-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Feedback Test</h2>
+        <input type="number" id="feedback-rating" placeholder="Rating (1-10)" value="9" min="1" max="10">
+        <textarea id="feedback-text" placeholder="Feedback Text">Great service! CORS is working perfectly.</textarea>
+        <button onclick="testFeedback()">Test Feedback Submission</button>
+        <div id="feedback-result" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000';
+
+        function showResult(elementId, success, message, data = null) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `
+                <div class="${success ? 'success' : 'error'}">
+                    ${success ? '✅' : '❌'} ${message}
+                </div>
+                ${data ? `<pre>${JSON.stringify(data, null, 2)}</pre>` : ''}
+            `;
+        }
+
+        async function testHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                showResult('health-result', true, 'Health check successful!', data);
+            } catch (error) {
+                showResult('health-result', false, `Health check failed: ${error.message}`);
+            }
+        }
+
+        async function testContact() {
+            try {
+                const response = await fetch(`${API_BASE}/api/contacts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('contact-name').value,
+                        email: document.getElementById('contact-email').value,
+                        message: document.getElementById('contact-message').value
+                    })
+                });
+                const data = await response.json();
+                showResult('contact-result', data.success, data.message, data);
+            } catch (error) {
+                showResult('contact-result', false, `Contact submission failed: ${error.message}`);
+            }
+        }
+
+        async function testNewsletter() {
+            try {
+                const response = await fetch(`${API_BASE}/api/interactions/email`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById('newsletter-email').value,
+                        source: 'newsletter_subscription'
+                    })
+                });
+                const data = await response.json();
+                showResult('newsletter-result', data.success, data.message, data);
+            } catch (error) {
+                showResult('newsletter-result', false, `Newsletter subscription failed: ${error.message}`);
+            }
+        }
+
+        async function testFeedback() {
+            try {
+                const response = await fetch(`${API_BASE}/api/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        rating: parseInt(document.getElementById('feedback-rating').value),
+                        feedbackText: document.getElementById('feedback-text').value,
+                        sessionId: 'test-session-' + Date.now()
+                    })
+                });
+                const data = await response.json();
+                showResult('feedback-result', data.success, data.message, data);
+            } catch (error) {
+                showResult('feedback-result', false, `Feedback submission failed: ${error.message}`);
+            }
+        }
+
+        // Auto-test health on page load
+        window.onload = function() {
+            setTimeout(testHealth, 1000);
+        };
+    </script>
+</body>
+</html>
