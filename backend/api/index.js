@@ -1,10 +1,5 @@
 // Vercel Serverless API for Genrec AI Backend
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
 const { Pool } = require('pg');
-
-const app = express();
 
 // Database connection
 const pool = new Pool({
