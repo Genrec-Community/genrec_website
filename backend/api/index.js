@@ -44,6 +44,7 @@ module.exports = async (req, res) => {
   try {
     // Normalize URL (remove trailing slash)
     const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
+    console.log(`Original URL: "${url}", Normalized URL: "${normalizedUrl}"`);
 
     // Debug environment variables
     if (normalizedUrl === '/api/debug-env') {
@@ -225,6 +226,7 @@ module.exports = async (req, res) => {
         'GET /',
         'GET /api',
         'GET /api/health',
+        'GET /api/debug-env',
         'POST /api/contacts',
         'POST /api/feedback',
         'POST /api/interactions/email',
