@@ -45,6 +45,28 @@ module.exports = async (req, res) => {
     // Normalize URL (remove trailing slash)
     const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
 
+    // Debug environment variables
+    if (normalizedUrl === '/api/debug-env') {
+      const envInfo = {
+        DB_HOST: process.env.DB_HOST || 'NOT SET',
+        DB_PORT: process.env.DB_PORT || 'NOT SET',
+        DB_NAME: process.env.DB_NAME || 'NOT SET',
+        DB_USER: process.env.DB_USER || 'NOT SET',
+        DB_PASSWORD: process.env.DB_PASSWORD ? '***SET***' : 'NOT SET',
+        NODE_ENV: process.env.NODE_ENV || 'NOT SET',
+        all_db_keys: Object.keys(process.env).filter(key =>
+          key.toLowerCase().includes('db') ||
+          key.toLowerCase().includes('database')
+        )
+      };
+
+      return sendJSON(res, 200, {
+        status: 'DEBUG_INFO',
+        timestamp: new Date().toISOString(),
+        environment_info: envInfo
+      });
+    }
+
     // Health check
     if (normalizedUrl === '/api/health' || normalizedUrl === '/' || normalizedUrl === '/api') {
       try {
