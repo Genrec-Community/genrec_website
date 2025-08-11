@@ -42,8 +42,11 @@ module.exports = async (req, res) => {
   console.log(`${method} ${url} - ${new Date().toISOString()}`);
 
   try {
+    // Normalize URL (remove trailing slash)
+    const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
+
     // Health check
-    if (url === '/api/health' || url === '/' || url === '/api') {
+    if (normalizedUrl === '/api/health' || normalizedUrl === '/' || normalizedUrl === '/api') {
       try {
         const result = await pool.query('SELECT NOW() as current_time');
         return sendJSON(res, 200, {
@@ -63,7 +66,7 @@ module.exports = async (req, res) => {
     }
 
     // Contact form
-    if (url === '/api/contacts' && method === 'POST') {
+    if (normalizedUrl === '/api/contacts' && method === 'POST') {
       const { name, email, phone, company, projectType, budget, timeline, message } = req.body;
       
       console.log('📧 Contact form submission:', { name, email });
@@ -84,7 +87,7 @@ module.exports = async (req, res) => {
     }
 
     // Feedback
-    if (url === '/api/feedback' && method === 'POST') {
+    if (normalizedUrl === '/api/feedback' && method === 'POST') {
       const { sessionId, rating, feedbackText, messageId, userEmail } = req.body;
       
       console.log('⭐ Feedback submission:', { sessionId, rating });
@@ -114,7 +117,7 @@ module.exports = async (req, res) => {
     }
 
     // Newsletter
-    if (url === '/api/interactions/email' && method === 'POST') {
+    if (normalizedUrl === '/api/interactions/email' && method === 'POST') {
       const { email, source } = req.body;
       
       console.log('📧 Email interaction:', { email, source });
@@ -137,7 +140,7 @@ module.exports = async (req, res) => {
     }
 
     // Admin endpoints
-    if (url === '/api/admin/feedback' && method === 'GET') {
+    if (normalizedUrl === '/api/admin/feedback' && method === 'GET') {
       const result = await pool.query(`
         SELECT f.*, c.session_id, c.user_email as conversation_user_email
         FROM feedback f
@@ -155,7 +158,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    if (url === '/api/admin/contacts' && method === 'GET') {
+    if (normalizedUrl === '/api/admin/contacts' && method === 'GET') {
       const result = await pool.query(`
         SELECT * FROM contacts 
         ORDER BY created_at DESC 
@@ -169,7 +172,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    if (url === '/api/admin/dashboard' && method === 'GET') {
+    if (normalizedUrl === '/api/admin/dashboard' && method === 'GET') {
       const [contactStats, conversationStats, feedbackStats] = await Promise.all([
         pool.query(`SELECT COUNT(*) as total_contacts FROM contacts`),
         pool.query(`SELECT COUNT(*) as total_conversations FROM conversations`),
@@ -194,9 +197,11 @@ module.exports = async (req, res) => {
     return sendJSON(res, 404, {
       error: 'Route not found',
       method,
-      url,
+      original_url: url,
+      normalized_url: normalizedUrl,
       available_routes: [
         'GET /',
+        'GET /api',
         'GET /api/health',
         'POST /api/contacts',
         'POST /api/feedback',
