@@ -4,6 +4,10 @@ const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
 
+// Import Supabase configuration and database service
+const { testConnection } = require('./config/supabase');
+const db = require('./services/database');
+
 // Simple logger
 const logger = {
   info: (msg, data) => console.log(`[INFO] ${msg}`, data || ''),
@@ -11,18 +15,20 @@ const logger = {
   warn: (msg, data) => console.warn(`[WARN] ${msg}`, data || '')
 };
 
-// Simple in-memory storage for now
-let contacts = [];
-let conversations = [];
-let feedback = [];
-let interactions = [];
+// Database will be handled by Supabase service
+// Remove in-memory storage
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS Configuration - Critical fix for form submission failures
+// CORS Configuration - Updated for production
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const allowedOrigins = isDevelopment
+  ? ['http://localhost:3000', 'http://127.0.0.1:3000']
+  : [process.env.FRONTEND_URL || 'http://localhost:5000'];
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   credentials: true,
@@ -32,23 +38,11 @@ app.use(cors({
 // Handle preflight requests explicitly
 app.options('*', cors());
 
-// Additional CORS headers middleware
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  next();
-});
-
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Serve static files from React build
+app.use(express.static(path.join(__dirname, '../build')));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -60,15 +54,9 @@ app.get('/health', (req, res) => {
 });
 
 // Contact form endpoint
-app.post('/api/contacts', (req, res) => {
+app.post('/api/contacts', async (req, res) => {
   try {
-    const contactData = {
-      id: Date.now(),
-      ...req.body,
-      created_at: new Date().toISOString()
-    };
-
-    contacts.push(contactData);
+    const contactData = await db.createContact(req.body);
     logger.info('Contact received:', contactData);
 
     res.status(201).json({
@@ -86,15 +74,9 @@ app.post('/api/contacts', (req, res) => {
 });
 
 // Feedback endpoint
-app.post('/api/feedback', (req, res) => {
+app.post('/api/feedback', async (req, res) => {
   try {
-    const feedbackData = {
-      id: Date.now(),
-      ...req.body,
-      created_at: new Date().toISOString()
-    };
-
-    feedback.push(feedbackData);
+    const feedbackData = await db.createFeedback(req.body);
     logger.info('Feedback received:', feedbackData);
 
     res.status(201).json({
@@ -112,15 +94,9 @@ app.post('/api/feedback', (req, res) => {
 });
 
 // Conversation endpoint
-app.post('/api/conversations', (req, res) => {
+app.post('/api/conversations', async (req, res) => {
   try {
-    const conversationData = {
-      id: Date.now(),
-      ...req.body,
-      created_at: new Date().toISOString()
-    };
-
-    conversations.push(conversationData);
+    const conversationData = await db.createConversation(req.body);
     logger.info('Conversation created:', conversationData);
 
     res.status(201).json({
@@ -138,21 +114,9 @@ app.post('/api/conversations', (req, res) => {
 });
 
 // Message endpoint
-app.post('/api/conversations/message', (req, res) => {
+app.post('/api/conversations/message', async (req, res) => {
   try {
-    const messageData = {
-      id: Date.now(),
-      ...req.body,
-      created_at: new Date().toISOString()
-    };
-
-    // Find conversation and add message
-    const conversation = conversations.find(c => c.sessionId === req.body.sessionId);
-    if (conversation) {
-      if (!conversation.messages) conversation.messages = [];
-      conversation.messages.push(messageData);
-    }
-
+    const messageData = await db.addMessage(req.body);
     logger.info('Message added:', messageData);
 
     res.status(201).json({
@@ -170,15 +134,12 @@ app.post('/api/conversations/message', (req, res) => {
 });
 
 // Newsletter subscription endpoint
-app.post('/api/interactions/email', (req, res) => {
+app.post('/api/interactions/email', async (req, res) => {
   try {
-    const interactionData = {
-      id: Date.now(),
+    const interactionData = await db.createInteraction({
       ...req.body,
-      created_at: new Date().toISOString()
-    };
-
-    interactions.push(interactionData);
+      interactionType: 'email_signup'
+    });
     logger.info('Email interaction:', interactionData);
 
     res.status(201).json({
@@ -198,15 +159,12 @@ app.post('/api/interactions/email', (req, res) => {
 });
 
 // Analytics tracking endpoint
-app.post('/api/analytics/track', (req, res) => {
+app.post('/api/analytics/track', async (req, res) => {
   try {
-    const trackingData = {
-      id: Date.now(),
+    const trackingData = await db.createInteraction({
       ...req.body,
-      created_at: new Date().toISOString()
-    };
-
-    interactions.push(trackingData);
+      interactionType: req.body.interactionType || 'page_view'
+    });
     logger.info('Interaction tracked:', trackingData);
 
     res.status(201).json({
@@ -223,40 +181,9 @@ app.post('/api/analytics/track', (req, res) => {
 });
 
 // Admin dashboard endpoint
-app.get('/api/admin/dashboard', (req, res) => {
+app.get('/api/admin/dashboard', async (req, res) => {
   try {
-    const dashboardData = {
-      conversations: {
-        total_conversations: conversations.length,
-        today_conversations: conversations.filter(c =>
-          new Date(c.created_at).toDateString() === new Date().toDateString()
-        ).length
-      },
-      contacts: {
-        total_contacts: contacts.length,
-        today_contacts: contacts.filter(c =>
-          new Date(c.created_at).toDateString() === new Date().toDateString()
-        ).length,
-        new_contacts: contacts.length,
-        in_progress_contacts: 0,
-        completed_contacts: 0
-      },
-      feedback: {
-        total_feedback: feedback.length,
-        average_rating: feedback.length > 0
-          ? feedback.reduce((sum, f) => sum + (f.rating || 0), 0) / feedback.length
-          : 0,
-        positive_feedback: feedback.filter(f => f.rating >= 8).length,
-        negative_feedback: feedback.filter(f => f.rating <= 5).length,
-        with_comments: feedback.filter(f => f.feedbackText).length
-      },
-      users: {
-        total_users: new Set(contacts.map(c => c.email)).size,
-        new_today: contacts.filter(c =>
-          new Date(c.created_at).toDateString() === new Date().toDateString()
-        ).length
-      }
-    };
+    const dashboardData = await db.getDashboardStats();
 
     res.json({
       success: true,
@@ -272,31 +199,57 @@ app.get('/api/admin/dashboard', (req, res) => {
 });
 
 // Get all data endpoints for admin
-app.get('/api/admin/contacts', (req, res) => {
-  res.json({ success: true, data: contacts });
+app.get('/api/admin/contacts', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const filters = req.query;
+
+    const result = await db.getContacts(page, limit, filters);
+    res.json({ success: true, ...result });
+  } catch (error) {
+    logger.error('Get contacts error:', error);
+    res.status(500).json({ success: false, error: 'Failed to get contacts' });
+  }
 });
 
-app.get('/api/admin/conversations', (req, res) => {
-  res.json({ success: true, data: conversations });
+app.get('/api/admin/conversations', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const filters = req.query;
+
+    const result = await db.getConversations(page, limit, filters);
+    res.json({ success: true, ...result });
+  } catch (error) {
+    logger.error('Get conversations error:', error);
+    res.status(500).json({ success: false, error: 'Failed to get conversations' });
+  }
 });
 
-app.get('/api/admin/feedback', (req, res) => {
-  res.json({ success: true, data: feedback });
+app.get('/api/admin/feedback', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const filters = req.query;
+
+    const result = await db.getFeedback(page, limit, filters);
+    res.json({ success: true, ...result });
+  } catch (error) {
+    logger.error('Get feedback error:', error);
+    res.status(500).json({ success: false, error: 'Failed to get feedback' });
+  }
 });
 
-// Welcome route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Genrec AI Backend Server',
-    version: '1.0.0',
-    status: 'Running',
-    data_stored: {
-      contacts: contacts.length,
-      conversations: conversations.length,
-      feedback: feedback.length,
-      interactions: interactions.length
-    }
-  });
+// Serve React app for all non-API routes
+app.get('*', (req, res) => {
+  // If it's an API route, let it fall through to 404
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API endpoint not found' });
+  }
+
+  // Serve React app
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 // Error handling
@@ -309,10 +262,13 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   logger.info(`🚀 Genrec AI Backend Server running on port ${PORT}`);
-  logger.info(`📊 Data will be stored in memory`);
+  logger.info(`📊 Data will be stored in Supabase`);
   logger.info(`🔗 Frontend URL: http://localhost:3000`);
+
+  // Test Supabase connection
+  await testConnection();
 });
 
 module.exports = app;

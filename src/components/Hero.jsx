@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ChevronDown, Zap, Users, TrendingUp, Cpu } from 'lucide-react';
@@ -87,49 +87,49 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className={`relative z-10 container mx-auto px-6 pt-32 pb-20 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className={`relative z-10 container mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center">
           {/* Logo Section */}
-          <div className="flex justify-center items-center mb-8">
+          <div className="flex justify-center items-center mb-6 sm:mb-8">
             <div className="relative">
               <img
                 src="/Genrec_Full_Logo.png"
                 alt="Genrec AI Logo"
-                className="h-72 w-auto animate-pulse"
+                className="h-32 sm:h-48 md:h-64 lg:h-72 w-auto animate-pulse"
               />
-              <div className="absolute inset-16 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
             </div>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 sm:mb-6">
             <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
               GENREC
             </span>
-            <span className="block text-4xl md:text-5xl bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent font-light">
+            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent font-light">
               ARTIFICIAL INTELLIGENCE
             </span>
           </h1>
 
           {/* Dynamic Tagline */}
-          <div className="h-24 mb-8 flex items-center justify-center">
-            <p className="text-2xl md:text-3xl text-gray-300 font-light">
+          <div className="h-16 sm:h-20 md:h-24 mb-6 sm:mb-8 flex items-center justify-center px-4">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 font-light text-center">
               We build AI that{' '}
               <span className="relative">
                 <span className="text-yellow-400 font-medium bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
                   {currentText}
                 </span>
-                <span className="absolute -right-1 top-0 w-0.5 h-8 bg-yellow-400 animate-pulse"></span>
+                <span className="absolute -right-1 top-0 w-0.5 h-6 sm:h-7 md:h-8 bg-yellow-400 animate-pulse"></span>
               </span>
             </p>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-12 sm:mb-16 px-4">
             <Button
               size="lg"
               onClick={() => navigate('/contact')}
-              className="group relative bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 font-medium px-8 py-4 text-lg shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 hover:scale-105 overflow-hidden"
+              className="group relative bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-300 hover:to-yellow-500 font-medium px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
             >
               <span className="relative z-10">Start Your AI Journey</span>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -138,7 +138,7 @@ const Hero = () => {
               size="lg"
               variant="outline"
               onClick={() => navigate('/projects')}
-              className="group relative border-2 border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/20 hover:text-black hover:border-yellow-400/60 font-medium px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 overflow-hidden"
+              className="group relative border-2 border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/20 hover:text-black hover:border-yellow-400/60 font-medium px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 overflow-hidden w-full sm:w-auto"
             >
               <span className="relative z-10">Explore Projects</span>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 to-yellow-500/30 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
@@ -146,17 +146,17 @@ const Hero = () => {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto px-4">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <div 
-                  key={index} 
-                  className="group text-center p-6 bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-lg hover:bg-gray-800/40 hover:border-yellow-400/30 transition-all duration-300"
+                <div
+                  key={index}
+                  className="group text-center p-4 sm:p-6 bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-lg hover:bg-gray-800/40 hover:border-yellow-400/30 transition-all duration-300"
                 >
-                  <IconComponent className="w-8 h-8 text-yellow-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
-                  <div className="text-3xl font-bold text-white mb-1">{stat.number}</div>
-                  <div className="text-gray-400 text-sm font-medium">{stat.label}</div>
+                  <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400 mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300" />
+                  <div className="text-2xl sm:text-3xl font-bold text-white mb-1">{stat.number}</div>
+                  <div className="text-gray-400 text-xs sm:text-sm font-medium">{stat.label}</div>
                 </div>
               );
             })}

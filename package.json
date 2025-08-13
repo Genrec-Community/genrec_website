@@ -1,7 +1,29 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "genrec-website",
+  "version": "1.0.0",
+  "description": "Genrec AI Website - Full Stack Application",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "client:dev": "react-scripts start",
+    "client:build": "react-scripts build",
+    "client:test": "react-scripts test",
+    "server:dev": "nodemon server/index.js",
+    "server:start": "node server/index.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "keywords": [
+    "genrec",
+    "ai",
+    "website",
+    "react",
+    "express",
+    "fullstack"
+  ],
+  "author": "Genrec AI",
+  "license": "MIT",
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.8",
@@ -31,19 +53,25 @@
     "@radix-ui/react-toggle": "^1.1.6",
     "@radix-ui/react-toggle-group": "^1.1.7",
     "@radix-ui/react-tooltip": "^1.2.4",
+    "@supabase/supabase-js": "^2.55.0",
     "ajv": "^8.17.1",
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "cors": "^2.8.5",
     "cra-template": "1.2.0",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.3.1",
     "embla-carousel-react": "^8.6.0",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.507.0",
     "next-themes": "^0.4.6",
+    "pg": "^8.11.3",
     "react": "^19.0.0",
-    "react-day-picker": "8.10.1",
+    "react-day-picker": "^9.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.2",
     "react-resizable-panels": "^3.0.1",
@@ -55,11 +83,21 @@
     "vaul": "^1.1.2",
     "zod": "^3.24.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "vercel-build": "npm run build"
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@eslint/js": "9.23.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
+    "eslint": "9.23.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.4",
+    "globals": "15.15.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "postcss": "^8.4.49",
+    "supertest": "^6.3.3",
+    "tailwindcss": "^3.4.17"
   },
   "browserslist": {
     "production": [
@@ -73,17 +111,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@craco/craco": "^7.1.0",
-    "@eslint/js": "9.23.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "9.23.0",
-    "eslint-plugin-import": "2.31.0",
-    "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-react": "7.37.4",
-    "globals": "15.15.0",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17"
+  "engines": {
+    "node": ">=16.0.0"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "proxy": "http://localhost:5000"
 }
