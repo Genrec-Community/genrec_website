@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
-import { 
-  Download, 
-  Mail, 
-  Phone, 
-  Globe, 
-  Zap, 
-  Shield, 
-  Brain, 
+import {
+  Download,
+  Mail,
+  Globe,
+  Zap,
+  Shield,
+  Brain,
   TrendingUp,
   Users,
   Cpu,
@@ -36,23 +35,50 @@ const Brochure = () => {
   const services = [
     {
       icon: Brain,
-      title: "AI Strategy & Consulting",
-      description: "Transform your business with intelligent AI roadmaps tailored to your industry and goals."
+      title: "AI-Integrated Websites",
+      description: "Stunning websites powered by intelligent algorithms, featuring 3D models, parallax effects, and dynamic content adaptation.",
+      features: ["3D WebGL Integration", "Smart Content Adaptation", "Parallax Animations", "AI-Driven UX"]
+    },
+    {
+      icon: Users,
+      title: "Intelligent CRM Systems",
+      description: "Next-generation customer relationship management with predictive analytics and automated workflows.",
+      features: ["Predictive Analytics", "Automated Workflows", "Smart Dashboards", "Real-time Insights"]
     },
     {
       icon: Cpu,
-      title: "Custom AI Development",
-      description: "Build powerful AI solutions from machine learning models to intelligent automation systems."
-    },
-    {
-      icon: Shield,
-      title: "AI Security & Compliance",
-      description: "Ensure your AI systems are secure, ethical, and compliant with industry regulations."
+      title: "Data Science MVPs",
+      description: "Rapid prototyping of machine learning solutions with custom pipelines and predictive models.",
+      features: ["Custom ML Models", "Data Pipelines", "Predictive Analytics", "Real-time Processing"]
     },
     {
       icon: TrendingUp,
-      title: "AI Analytics & Insights",
-      description: "Unlock hidden patterns in your data with advanced AI-powered analytics and reporting."
+      title: "AI-Powered Mobile Apps",
+      description: "React Native and Flutter applications with sensor integration and offline-first architecture.",
+      features: ["Cross-Platform", "Sensor Integration", "Offline Sync", "Push Notifications"]
+    }
+  ];
+
+  const whyChooseUs = [
+    {
+      icon: Shield,
+      title: "Proven Expertise",
+      description: "Deep technical knowledge in AI/ML with hands-on experience in building scalable solutions."
+    },
+    {
+      icon: Zap,
+      title: "Rapid Development",
+      description: "Agile development process that delivers MVPs quickly while maintaining high quality standards."
+    },
+    {
+      icon: Target,
+      title: "Custom Solutions",
+      description: "Tailored AI solutions designed specifically for your business needs and industry requirements."
+    },
+    {
+      icon: Award,
+      title: "Quality Assurance",
+      description: "Rigorous testing and quality control processes ensure reliable, production-ready solutions."
     }
   ];
 
@@ -66,12 +92,27 @@ const Brochure = () => {
   ];
 
   const industries = [
-    { name: "Healthcare", icon: "🏥" },
-    { name: "Finance", icon: "💰" },
-    { name: "E-commerce", icon: "🛒" },
-    { name: "Manufacturing", icon: "🏭" },
-    { name: "Education", icon: "🎓" },
-    { name: "Technology", icon: "💻" }
+    { name: "E-commerce", icon: "🛒", description: "Smart shopping experiences with AI personalization" },
+    { name: "Education", icon: "🎓", description: "Adaptive learning platforms with AI tutoring" },
+    { name: "Healthcare", icon: "🏥", description: "AI-powered diagnostics and patient management" },
+    { name: "Finance", icon: "💰", description: "Intelligent analytics and fraud detection" },
+    { name: "Manufacturing", icon: "🏭", description: "Predictive maintenance and quality control" },
+    { name: "Technology", icon: "💻", description: "Advanced AI tools and automation solutions" }
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      company: "TechStart Inc.",
+      text: "Genrec AI transformed our business with their intelligent CRM system. The predictive analytics have increased our sales by 40%.",
+      rating: 5
+    },
+    {
+      name: "Michael Chen",
+      company: "EduLearn Platform",
+      text: "Their AI-powered learning platform exceeded our expectations. The adaptive learning features have improved student engagement significantly.",
+      rating: 5
+    }
   ];
 
   return (
@@ -182,15 +223,77 @@ const Brochure = () => {
                       <div className="w-12 h-12 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
                         <IconComponent className="w-6 h-6 text-yellow-400" />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-                        <p className="text-gray-300">{service.description}</p>
+                        <p className="text-gray-300 mb-4">{service.description}</p>
+                        {service.features && (
+                          <div className="space-y-2">
+                            {service.features.map((feature, featureIndex) => (
+                              <div key={featureIndex} className="flex items-center space-x-2">
+                                <CheckCircle className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+                                <span className="text-sm text-gray-400">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               );
             })}
+          </div>
+        </div>
+
+        {/* Why Choose Us */}
+        <div className="mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+              Why Choose Genrec AI?
+            </span>
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {whyChooseUs.map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <Card key={index} className="bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-300 hover:scale-105 text-center">
+                  <CardContent className="p-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-8 h-8 text-yellow-400" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-3">{item.title}</h3>
+                    <p className="text-gray-300 text-sm">{item.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Testimonials */}
+        <div className="mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+              What Our Clients Say
+            </span>
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="bg-gray-900/50 backdrop-blur-sm border-gray-800/50">
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
+                  <div>
+                    <div className="font-semibold text-white">{testimonial.name}</div>
+                    <div className="text-sm text-gray-400">{testimonial.company}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
 
@@ -201,15 +304,55 @@ const Brochure = () => {
               Industries We Serve
             </span>
           </h2>
-          <div className="brochure-industries grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="brochure-industries grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industries.map((industry, index) => (
               <Card key={index} className="brochure-card bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-300 hover:scale-105 glass-effect-dark">
-                <CardContent className="p-6 text-center max-sm:p-4">
-                  <div className="text-3xl mb-2 max-sm:text-2xl">{industry.icon}</div>
-                  <div className="text-sm font-medium text-gray-300 max-sm:text-xs">{industry.name}</div>
+                <CardContent className="p-6 text-center">
+                  <div className="text-4xl mb-3">{industry.icon}</div>
+                  <div className="text-lg font-semibold text-white mb-2">{industry.name}</div>
+                  <div className="text-sm text-gray-400">{industry.description}</div>
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+
+        {/* Process Overview */}
+        <div className="mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+              Our Development Process
+            </span>
+          </h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-yellow-400">1</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Discovery</h3>
+              <p className="text-gray-400 text-sm">Understanding your business needs and requirements</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-yellow-400">2</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Design</h3>
+              <p className="text-gray-400 text-sm">Creating detailed architecture and user experience</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-yellow-400">3</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Development</h3>
+              <p className="text-gray-400 text-sm">Building your AI solution with cutting-edge technology</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-yellow-400">4</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Deployment</h3>
+              <p className="text-gray-400 text-sm">Launching and maintaining your solution</p>
+            </div>
           </div>
         </div>
 
@@ -224,26 +367,42 @@ const Brochure = () => {
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
               Let's discuss how Genrec AI can revolutionize your operations with cutting-edge artificial intelligence solutions.
             </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+              <Button
+                onClick={() => window.open('mailto:contact@genrecai.com', '_self')}
+                className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 text-black font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 hover:scale-105"
+              >
+                <Mail className="w-5 h-5 mr-2" />
+                Get Started Today
+              </Button>
+              <Button
+                onClick={() => window.open('https://github.com/Genrec-Community', '_blank')}
+                className="bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105"
+              >
+                <ArrowRight className="w-5 h-5 mr-2" />
+                View Our Work
+              </Button>
+            </div>
+
             <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 mb-8">
               <div className="flex items-center space-x-2">
                 <Mail className="w-5 h-5 text-yellow-400" />
                 <span className="text-gray-300">contact@genrecai.com</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Phone className="w-5 h-5 text-yellow-400" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                <span className="text-gray-300">Karur, Tamil Nadu</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Globe className="w-5 h-5 text-yellow-400" />
                 <span className="text-gray-300">www.genrecai.com</span>
               </div>
             </div>
-            <Button
-              className="interactive-button bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 text-black font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 hover:scale-105 max-sm:px-6 max-sm:py-2 max-sm:text-sm"
-            >
-              Get Started Today
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+        
           </CardContent>
         </Card>
       </div>

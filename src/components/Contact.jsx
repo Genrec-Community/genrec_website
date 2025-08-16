@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from '../hooks/use-toast';
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import apiService from '../services/api';
 
 const Contact = () => {
@@ -145,17 +145,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <div className="text-sm text-gray-400">Email</div>
-                      <div className="text-white font-medium">hello@genrec.ai</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 rounded-lg flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-yellow-400" />
-                    </div>
-                    <div>
-                      <div className="text-sm text-gray-400">Phone</div>
-                      <div className="text-white font-medium">+1 (555) 123-4567</div>
+                      <div className="text-white font-medium">contact@genrecai.com</div>
                     </div>
                   </div>
 
@@ -165,7 +155,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <div className="text-sm text-gray-400">Location</div>
-                      <div className="text-white font-medium">San Francisco, CA</div>
+                      <div className="text-white font-medium">Karur, Tamil Nadu</div>
                     </div>
                   </div>
                 </div>

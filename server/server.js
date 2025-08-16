@@ -41,6 +41,20 @@ app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Import HTTP/2 Server Push middleware, Cache Control middleware, and Compression middleware
+const http2ServerPush = require('./middleware/http2ServerPush');
+const cacheControl = require('./middleware/cacheControl');
+const compressionMiddleware = require('./middleware/compression');
+
+// Apply Compression middleware (should be one of the first middleware)
+app.use(compressionMiddleware);
+
+// Apply HTTP/2 Server Push middleware
+app.use(http2ServerPush);
+
+// Apply Cache Control middleware
+app.use(cacheControl);
+
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, '../build')));
 

@@ -4,20 +4,20 @@ export const mockData = {
   // Hero Section
   hero: {
     title: "GENREC AI",
-    subtitle: "We build AI that thinks, learns, and evolves.",
-    tagline: "Forging the Future of Intelligent Software",
+    subtitle: "We build AI that transforms your business reality.",
+    tagline: "Pioneering Intelligent Solutions for Tomorrow's Challenges",
     stats: [
-      { number: "50+", label: "AI Projects Delivered" },
-      { number: "15+", label: "Industries Served" },
-      { number: "99%", label: "Client Satisfaction" },
-      { number: "24/7", label: "AI Support" }
+      { number: "50+", label: "Enterprise Solutions" },
+      { number: "15+", label: "Industries Transformed" },
+      { number: "99%", label: "Efficiency Increase" },
+      { number: "24/7", label: "Intelligent Support" }
     ]
   },
 
   // About Section
   about: {
     title: "Forging the Future",
-    description: "At Genrec AI, we don't just build software—we craft intelligent ecosystems that evolve, adapt, and anticipate. Our mission is to bridge the gap between human creativity and machine intelligence, creating solutions that feel intuitive yet perform beyond expectations.",
+    description: "At Genrec AI, we engineer intelligent ecosystems that evolve with your business needs. Our mission is to seamlessly blend human ingenuity with advanced AI capabilities, delivering solutions that not only feel intuitive but consistently exceed performance expectations and drive measurable business outcomes.",
     features: [
       {
         title: "Privacy-First Architecture",
@@ -52,49 +52,49 @@ export const mockData = {
   services: [
     {
       title: "AI-Integrated Websites",
-      description: "Stunning websites powered by intelligent algorithms, featuring 3D models, parallax effects, and dynamic content adaptation.",
+      description: "Elevate your digital presence with our cutting-edge websites that harness the power of AI to create immersive, responsive experiences. Our solutions adapt to user behavior in real-time, delivering personalized content through stunning visuals and seamless interactions.",
       features: ["3D WebGL Integration", "Smart Content Adaptation", "Parallax Animations", "AI-Driven UX"],
       icon: "globe"
     },
     {
       title: "Intelligent CRM Systems",
-      description: "Next-generation customer relationship management with predictive analytics and automated workflows.",
+      description: "Revolutionize how you connect with customers through our AI-powered CRM platform. Anticipate needs before they arise, automate routine tasks, and gain deep insights from your customer data—all within an intuitive interface designed to boost productivity and drive growth.",
       features: ["Predictive Analytics", "Automated Workflows", "Smart Dashboards", "Real-time Insights"],
       icon: "users"
     },
     {
       title: "Data Science MVPs",
-      description: "Rapid prototyping of machine learning solutions with custom pipelines and predictive models.",
+      description: "Accelerate your time-to-insight with our rapid prototyping approach to machine learning solutions. We build custom data pipelines and predictive models that transform your raw data into actionable business intelligence in weeks, not months.",
       features: ["Custom ML Models", "Data Pipelines", "Predictive Analytics", "Real-time Processing"],
       icon: "brain"
     },
     {
       title: "AI-Powered Mobile Apps",
-      description: "React Native and Flutter applications with sensor integration and offline-first architecture.",
+      description: "Deliver exceptional mobile experiences with our AI-enhanced applications built on React Native and Flutter. Leverage device sensors, ensure seamless offline functionality, and provide personalized interactions that keep users engaged and coming back.",
       features: ["Cross-Platform", "Sensor Integration", "Offline Sync", "Push Notifications"],
       icon: "smartphone"
     },
     {
       title: "Web Services & APIs",
-      description: "Scalable microservices architecture with REST/GraphQL APIs and Kubernetes deployment.",
+      description: "Build the backbone of your digital ecosystem with our scalable, resilient web services. Our microservices architecture with REST/GraphQL APIs ensures your systems can handle growth, integrate seamlessly with third-party services, and maintain peak performance under any load.",
       features: ["Microservices", "Auto-Scaling", "API Gateway", "Monitoring"],
       icon: "server"
     },
     {
       title: "Zen Analyzer",
-      description: "Upload CSV/Excel files and get AI-driven insights, summaries, and interactive Q&A capabilities.",
+      description: "Transform complex data into clear insights with our intuitive analysis platform. Simply upload your CSV/Excel files and let our AI generate meaningful visualizations, extract key patterns, and answer your business questions in plain language—no coding required.",
       features: ["Natural Language Queries", "Chart Generation", "Data Export", "Interactive Analysis"],
       icon: "file-text"
     },
     {
       title: "Smart E-commerce",
-      description: "Headless storefronts with AI personalization, AR product previews, and intelligent recommendations.",
+      description: "Redefine online shopping with our AI-powered e-commerce solutions. Our headless architecture enables seamless omnichannel experiences, while AI personalization, AR product previews, and intelligent recommendations drive higher conversion rates and customer satisfaction.",
       features: ["AI Personalization", "AR Previews", "Smart Recommendations", "Headless Architecture"],
       icon: "shopping-cart"
     },
     {
       title: "Educational AI",
-      description: "Adaptive learning platforms with AI tutors, anonymous feedback systems, and progress tracking.",
+      description: "Revolutionize learning with our adaptive educational platforms that adjust to each student's unique needs. Our AI tutors provide personalized guidance, while anonymous feedback systems and comprehensive analytics help educators optimize content and teaching methods for maximum impact.",
       features: ["Adaptive Learning", "AI Tutoring", "Progress Analytics", "Anonymous Feedback"],
       icon: "graduation-cap"
     }
@@ -202,13 +202,10 @@ export const mockData = {
 
   // Contact Information
   contact: {
-    email: "hello@genrec.ai",
-    phone: "+1 (555) 123-4567",
-    address: "San Francisco, CA",
+    email: "contact@genrecai.com",
+    address: "Karur, Tamil Nadu",
     social: {
-      twitter: "https://twitter.com/genrecai",
-      linkedin: "https://linkedin.com/company/genrec-ai",
-      github: "https://github.com/genrec-ai"
+      github: "https://github.com/Genrec-Community"
     }
   },
 

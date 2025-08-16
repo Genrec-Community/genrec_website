@@ -37,18 +37,15 @@ const Header = () => {
       <div className="container mx-auto px-6 py-1">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3 relative z-50 max-sm:bg-black/90 max-sm:backdrop-blur-sm max-sm:rounded-lg max-sm:px-3 max-sm:py-2 max-sm:border max-sm:border-gray-700/50">
+          <div className="flex items-center space-x-3 relative z-50">
             <div className="relative">
               <img
                 src="/Genrec_Mini_Logo.png"
                 alt="Genrec AI"
-                className="w-24 h-24 relative z-10 drop-shadow-2xl max-sm:drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] max-sm:w-20 max-sm:h-20"
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 relative z-10 filter drop-shadow-lg"
               />
-              {/* Enhanced mobile logo background protection */}
-              <div className="absolute inset-0 bg-black/40 rounded-full blur-md -z-10 max-sm:bg-black/80 max-sm:blur-lg"></div>
-              <div className="absolute inset-2 bg-black/20 rounded-full blur-sm -z-10 max-sm:bg-black/60"></div>
             </div>
-            <span className="text-2xl font-bold text-white font-orbitron drop-shadow-2xl relative z-10 max-sm:drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] max-sm:text-xl">GENREC</span>
+            <span className="text-xl sm:text-2xl font-bold text-white font-orbitron filter drop-shadow-lg">GENREC</span>
           </div>
 
           {/* Desktop Navigation */}

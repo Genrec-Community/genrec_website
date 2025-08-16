@@ -27,9 +27,9 @@ const Hero = () => {
   
   const texts = [
     'thinks, learns, and evolves.',
-    'adapts to your business.',
-    'transforms your vision.',
-    'powers your success.'
+    'transforms data into insights.',
+    'accelerates your innovation.',
+    'powers your digital future.'
   ];
 
   useEffect(() => {
@@ -57,10 +57,10 @@ const Hero = () => {
   }, [currentText, currentIndex, isTyping, texts]);
 
   const stats = [
-    { icon: Zap, number: "10+", label: "Projects Delivered" },
-    { icon: Users, number: "3+", label: "Industries Served" },
-    { icon: TrendingUp, number: "88%", label: "Client Satisfaction" },
-    { icon: Cpu, number: "24/7", label: "Support" }
+    { icon: Zap, number: "10+", label: "Enterprise Solutions" },
+    { icon: Users, number: "3+", label: "Industries Transformed" },
+    { icon: TrendingUp, number: "88%", label: "Efficiency Increase" },
+    { icon: Cpu, number: "24/7", label: "Intelligent Support" }
   ];
 
   return (
@@ -95,9 +95,12 @@ const Hero = () => {
               <img
                 src="/Genrec_Full_Logo.png"
                 alt="Genrec AI Logo"
-                className="h-32 sm:h-48 md:h-64 lg:h-72 w-auto animate-pulse"
+                className="h-24 sm:h-32 md:h-48 lg:h-64 xl:h-72 w-auto animate-pulse hero-logo-mobile"
+                loading="eager"
+                fetchPriority="high"
               />
-              <div className="absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
+              {/* Reduced glow effect for mobile performance */}
+              <div className="absolute inset-2 sm:inset-4 md:inset-8 lg:inset-12 xl:inset-16 bg-yellow-400/10 sm:bg-yellow-400/20 rounded-full blur-lg sm:blur-xl animate-pulse hidden sm:block"></div>
             </div>
           </div>
 

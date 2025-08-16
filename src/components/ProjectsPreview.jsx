@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import LazyImage from './LazyImage';
 import { 
   ExternalLink, 
   Github, 
@@ -18,8 +19,8 @@ const ProjectsPreview = () => {
     {
       title: "LuminaIQ",
       subtitle: "AI-Powered Learning Platform",
-      description: "Revolutionary educational platform that adapts to individual learning styles using advanced machine learning algorithms.",
-      image: "/api/placeholder/400/250",
+      description: "Transform your educational experience with our adaptive learning platform that personalizes content based on your unique learning style and pace. Powered by advanced AI algorithms that continuously optimize your learning journey.",
+      image: "/images/projects/luminaiq-platform.svg",
       tags: ["React", "Python", "TensorFlow", "PostgreSQL"],
       metrics: {
         users: "10K+",
@@ -37,8 +38,8 @@ const ProjectsPreview = () => {
     {
       title: "CRM Pro Suite",
       subtitle: "Intelligent Business Management",
-      description: "Comprehensive CRM system with AI-driven analytics, automated workflows, and predictive customer insights.",
-      image: "/api/placeholder/400/250",
+      description: "Streamline your customer relationships with our AI-enhanced CRM solution. Gain actionable insights, automate repetitive tasks, and predict customer needs before they arise—all within an intuitive, powerful dashboard designed for modern businesses.",
+      image: "/images/projects/crm-dashboard.svg",
       tags: ["Next.js", "Node.js", "MongoDB", "OpenAI"],
       metrics: {
         clients: "500+",
@@ -90,6 +91,15 @@ const ProjectsPreview = () => {
                 {/* Project Image */}
                 <div className="relative h-48 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-yellow-600/10"></div>
+                  <LazyImage 
+                    src={project.image} 
+                    alt={`${project.title} - ${project.subtitle}`} 
+                    className="absolute inset-0 w-full h-full"
+                    imgProps={{
+                      className: "opacity-70 group-hover:opacity-90 transition-opacity duration-300"
+                    }}
+                    placeholderColor="#1a1a1a"
+                  />
                   <div className="absolute top-4 left-4">
                     <Badge className={`bg-gradient-to-r ${project.color} text-white border-0`}>
                       {project.status}

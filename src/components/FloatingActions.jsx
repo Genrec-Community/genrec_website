@@ -5,11 +5,8 @@ import {
   ArrowUp,
   Zap,
   Calendar,
-  Download,
-  Phone,
   Mail,
-  FileText,
-  ExternalLink
+  FileText
 } from 'lucide-react';
 import apiService from '../services/api';
 
@@ -72,14 +69,11 @@ const FloatingActions = () => {
     window.open('https://calendly.com/genrec-ai/consultation', '_blank');
   };
 
+
+
   const downloadBrochure = async () => {
     await trackInteraction('brochure_click', { action: 'download_brochure' });
     navigate('/brochure');
-  };
-
-  const callUs = async () => {
-    await trackInteraction('phone_click', { action: 'call_us', phone: '+1234567890' });
-    window.open('tel:+1-555-123-4567', '_self');
   };
 
   const emailUs = async () => {
@@ -101,13 +95,6 @@ const FloatingActions = () => {
       action: downloadBrochure,
       color: 'from-purple-500 to-purple-600',
       hoverColor: 'hover:from-purple-400 hover:to-purple-500'
-    },
-    {
-      icon: Phone,
-      label: 'Call Us',
-      action: callUs,
-      color: 'from-green-500 to-green-600',
-      hoverColor: 'hover:from-green-400 hover:to-green-500'
     },
     {
       icon: Mail,

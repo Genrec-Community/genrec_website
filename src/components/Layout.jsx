@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Chatbot from './Chatbot';
 import FloatingActions from './FloatingActions';
+import FloatingThemeSwitcher from './FloatingThemeSwitcher';
 import NotificationSystem from './NotificationSystem';
 
 const Layout = ({ children }) => {
@@ -23,6 +24,7 @@ const Layout = ({ children }) => {
       <Footer />
       <Chatbot />
       <FloatingActions />
+      <FloatingThemeSwitcher />
       <NotificationSystem />
     </>
   );

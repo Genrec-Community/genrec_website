@@ -1,6 +1,10 @@
 // API service for Genrec AI backend communication
 
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+// In production (Vercel), use relative URLs to call serverless functions
+// In development, use localhost backend
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? '' // Use relative URLs in production
+  : (process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000');
 
 class ApiService {
   constructor() {

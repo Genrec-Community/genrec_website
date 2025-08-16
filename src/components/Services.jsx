@@ -20,7 +20,8 @@ const Services = () => {
       features: ["3D WebGL Integration", "Smart Content Adaptation", "Parallax Animations", "AI-Driven UX"],
       icon: Globe,
       color: "from-blue-500/20 to-cyan-500/20",
-      borderColor: "border-cyan-500/30"
+      borderColor: "border-cyan-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "Intelligent CRM Systems",
@@ -28,7 +29,8 @@ const Services = () => {
       features: ["Predictive Analytics", "Automated Workflows", "Smart Dashboards", "Real-time Insights"],
       icon: Users,
       color: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-emerald-500/30"
+      borderColor: "border-emerald-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "Data Science MVPs",
@@ -36,7 +38,8 @@ const Services = () => {
       features: ["Custom ML Models", "Data Pipelines", "Predictive Analytics", "Real-time Processing"],
       icon: Brain,
       color: "from-purple-500/20 to-pink-500/20",
-      borderColor: "border-pink-500/30"
+      borderColor: "border-pink-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "AI-Powered Mobile Apps",
@@ -44,7 +47,8 @@ const Services = () => {
       features: ["Cross-Platform", "Sensor Integration", "Offline Sync", "Push Notifications"],
       icon: Smartphone,
       color: "from-orange-500/20 to-red-500/20",
-      borderColor: "border-red-500/30"
+      borderColor: "border-red-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "Web Services & APIs",
@@ -52,7 +56,8 @@ const Services = () => {
       features: ["Microservices", "Auto-Scaling", "API Gateway", "Monitoring"],
       icon: Server,
       color: "from-gray-500/20 to-slate-500/20",
-      borderColor: "border-slate-500/30"
+      borderColor: "border-slate-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "Zen Analyzer",
@@ -60,7 +65,8 @@ const Services = () => {
       features: ["Natural Language Queries", "Chart Generation", "Data Export", "Interactive Analysis"],
       icon: FileText,
       color: "from-yellow-500/20 to-amber-500/20",
-      borderColor: "border-amber-500/30"
+      borderColor: "border-amber-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "Smart E-commerce",
@@ -68,7 +74,8 @@ const Services = () => {
       features: ["AI Personalization", "AR Previews", "Smart Recommendations", "Headless Architecture"],
       icon: ShoppingCart,
       color: "from-indigo-500/20 to-blue-500/20",
-      borderColor: "border-blue-500/30"
+      borderColor: "border-blue-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       title: "Educational AI",
@@ -76,7 +83,8 @@ const Services = () => {
       features: ["Adaptive Learning", "AI Tutoring", "Progress Analytics", "Anonymous Feedback"],
       icon: GraduationCap,
       color: "from-teal-500/20 to-cyan-500/20",
-      borderColor: "border-teal-500/30"
+      borderColor: "border-teal-500/30",
+      backgroundImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
@@ -105,14 +113,25 @@ const Services = () => {
             return (
               <Card
                 key={index}
-                className="group bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10 hover:scale-105"
+                className="group relative overflow-hidden bg-gray-900/50 backdrop-blur-sm border-gray-800/50 hover:border-yellow-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-yellow-400/10 hover:scale-105"
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
               >
-                <CardHeader className="pb-4">
+                {/* Background Image */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+                  style={{
+                    backgroundImage: `url("${service.backgroundImage}")`
+                  }}
+                ></div>
+                {/* Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/70 to-gray-900/90 transition-all duration-500 group-hover:from-gray-900/70 group-hover:via-gray-900/60 group-hover:to-gray-900/80"></div>
+                {/* Additional overlay for enhanced contrast */}
+                <div className="absolute inset-0 bg-black/20 transition-all duration-500 group-hover:bg-black/10"></div>
+                <CardHeader className="pb-4 relative z-10">
                   <div className="mb-4">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm border border-white/10`}>
                       <IconComponent className="w-8 h-8 text-yellow-400" />
                     </div>
                   </div>
@@ -120,8 +139,8 @@ const Services = () => {
                     {service.title}
                   </CardTitle>
                 </CardHeader>
-                
-                <CardContent className="pt-0">
+
+                <CardContent className="pt-0 relative z-10">
                   <p className="text-gray-400 text-sm leading-relaxed mb-4">
                     {service.description}
                   </p>

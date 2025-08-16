@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Twitter, Linkedin, Github, Mail, ArrowUp, CheckCircle, AlertCircle } from 'lucide-react';
+import { Github, Mail, ArrowUp, CheckCircle, AlertCircle } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 import apiService from '../services/api';
 
@@ -96,28 +96,32 @@ const Footer = () => {
                 Bridging the gap between human creativity and machine intelligence.
               </p>
               
+              {/* Contact Info */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4 text-yellow-400" />
+                  <span className="text-gray-300 text-sm">contact@genrecai.com</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-gray-300 text-sm">Karur, Tamil Nadu</span>
+                </div>
+              </div>
+
               {/* Social Links */}
               <div className="flex space-x-4">
-                <a 
-                  href="#" 
-                  className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center hover:bg-yellow-400/20 hover:text-yellow-400 transition-all duration-200 group"
-                >
-                  <Twitter className="w-5 h-5 text-gray-400 group-hover:text-yellow-400" />
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center hover:bg-yellow-400/20 hover:text-yellow-400 transition-all duration-200 group"
-                >
-                  <Linkedin className="w-5 h-5 text-gray-400 group-hover:text-yellow-400" />
-                </a>
-                <a 
-                  href="#" 
+                <a
+                  href="https://github.com/Genrec-Community"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center hover:bg-yellow-400/20 hover:text-yellow-400 transition-all duration-200 group"
                 >
                   <Github className="w-5 h-5 text-gray-400 group-hover:text-yellow-400" />
                 </a>
-                <a 
-                  href="#" 
+                <a
+                  href="mailto:contact@genrecai.com"
                   className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center hover:bg-yellow-400/20 hover:text-yellow-400 transition-all duration-200 group"
                 >
                   <Mail className="w-5 h-5 text-gray-400 group-hover:text-yellow-400" />

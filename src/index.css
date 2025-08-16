@@ -1,6 +1,10 @@
+/* Critical CSS - Load First */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Import theme styles */
+@import './styles/theme.css';
 
 /* Cinematic Enhancements */
 @layer base {
@@ -9,11 +13,35 @@
   }
 
   body {
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
     overflow-x: hidden;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
   }
 }
 
+/* Critical Components - High Priority */
+@layer components {
+  /* Essential UI Elements */
+  .text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  
+  .text-glow-yellow {
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.4);
+  }
+  
+  /* Critical Backgrounds */
+  .bg-hero-pattern {
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(255, 255, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+  }
+}
+
+/* Non-Critical Components - Lower Priority, will be parsed after critical CSS */
 @layer components {
   /* Cinematic Glow Effects */
   .glow-yellow {
@@ -22,15 +50,6 @@
 
   .glow-blue {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
-  }
-
-  /* Cinematic Text Effects */
-  .text-glow {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
-  }
-
-  .text-glow-yellow {
-    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.4);
   }
 
   /* Cinematic Animations */
@@ -46,17 +65,10 @@
     animation: slide-up 0.8s ease-out forwards;
   }
 
-  /* Cinematic Backgrounds */
+  /* Additional Backgrounds */
   .bg-cinematic {
     background: radial-gradient(ellipse at center, rgba(255, 255, 0, 0.1) 0%, transparent 70%),
                 linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-  }
-
-  .bg-hero-pattern {
-    background-image:
-      radial-gradient(circle at 20% 50%, rgba(255, 255, 0, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
   }
 }
 
